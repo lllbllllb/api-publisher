@@ -1,0 +1,5 @@
+openapi: 3.0.3
+info:
+  title: Auth admin API
+  version: 1.10
+paths: {}

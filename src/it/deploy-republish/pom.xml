@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>it.api-publisher</groupId>
+    <artifactId>deploy-republish</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <description>Deploys into a file:// alternative repository three times: first publish, an unchanged
+        republish that skips, and a republish of a changed file under the same version that fails.</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Set through the goal's command-line property, not <configuration>, so the property
+             itself is covered too. -->
+        <api-publisher.altDeploymentRepository>it-remote::file://${project.basedir}/remote-repo</api-publisher.altDeploymentRepository>
+        <!-- This fixture project's own POM is not the subject of the test. -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <schemas.directory>${project.basedir}/src/main/resources</schemas.directory>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>@project.groupId@</groupId>
+                <artifactId>@project.artifactId@</artifactId>
+                <version>@project.version@</version>
+                <configuration>
+                    <groupIdPrefix>it.deploy</groupIdPrefix>
+                    <resourcesDirectory>${schemas.directory}</resourcesDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- The third invocation: auth-admin-api changed without a version bump, plus a schema that
+             was never published, which must not be deployed either. -->
+        <profile>
+            <id>changed-schemas</id>
+            <properties>
+                <schemas.directory>${project.basedir}/src/changed/resources</schemas.directory>
+            </properties>
+        </profile>
+    </profiles>
+</project>

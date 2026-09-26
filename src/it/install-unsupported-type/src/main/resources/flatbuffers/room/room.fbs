@@ -1,0 +1,5 @@
+table Room {
+  id: string;
+}
+
+root_type Room;

@@ -1,0 +1,6 @@
+openapi: 3.0.3
+info:
+  title: Auth admin API
+  description: Changed after 0.0.1 was published, without a version bump.
+  version: 0.0.1
+paths: {}
