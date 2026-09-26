@@ -25,7 +25,7 @@
         <plugins>
             <plugin>
                 <groupId>@project.groupId@</groupId>
-                <artifactId>@project.artifactId@</artifactId>
+                <artifactId>api-publisher-maven-plugin</artifactId>
                 <version>@project.version@</version>
                 <configuration>
                     <groupIdPrefix>it.deploy</groupIdPrefix>

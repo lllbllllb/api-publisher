@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.api-publisher</groupId>
-    <artifactId>install-missing-version</artifactId>
+    <artifactId>install-happy-path</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>A schema without info.version next to a valid one: the build fails and nothing is installed.</description>
+    <description>Installs one openapi and one asyncapi schema, each nested in a service subfolder.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,10 +18,10 @@
         <plugins>
             <plugin>
                 <groupId>@project.groupId@</groupId>
-                <artifactId>@project.artifactId@</artifactId>
+                <artifactId>api-publisher-maven-plugin</artifactId>
                 <version>@project.version@</version>
                 <configuration>
-                    <groupIdPrefix>it.noversion</groupIdPrefix>
+                    <groupIdPrefix>it.happy</groupIdPrefix>
                 </configuration>
                 <executions>
                     <execution>

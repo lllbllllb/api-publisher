@@ -97,11 +97,21 @@ The unsupported-type check is simply "this folder name has no registered handler
 `flatbuffers` later is exactly one new handler, registered alongside the existing two, and nothing
 else in the scan, validation or publishing code changes.
 
+## Layout
+
+| Module | What it holds |
+|---|---|
+| `api-publisher` (root) | The parent POM: versions, plugin management, `distributionManagement`. |
+| `api-publisher-maven-plugin` | The plugin itself and its unit tests. |
+| `api-publisher-functional-test` | `maven-invoker-plugin` fixture projects under `src/it`, run against the plugin built in the same reactor. |
+
 ## Building
 
 ```bash
 mvn clean install -Dasyncapi.generator.agent=node
 ```
 
-`src/it` holds `maven-invoker-plugin` fixture projects exercised during `verify`, each against its
-own local repository under `target/`, isolated from `~/.m2`.
+`api-publisher-functional-test/src/it` holds the fixture projects exercised during `verify`, each
+against its own local repository under that module's `target/`, isolated from `~/.m2`. Each fixture
+names the plugin by its literal artifactId; `invoker:install` copies it, with this parent POM, into
+that repository first.
